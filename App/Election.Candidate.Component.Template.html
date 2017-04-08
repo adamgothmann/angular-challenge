@@ -1,0 +1,27 @@
+<div>
+    <div>
+        <!-- List of Candidates -->
+        <h3>Manage Candidates</h3>
+        <ol>
+			<!--TODO ADD List of Candidate and the ability to remove-->
+          <li ng-repeat="candidate in $ctrl.candidates">
+            <span ng-bind="candidate.name"></span>
+            <button class="delete-button" ng-click="$ctrl.deleteCandidate($index)" type="button" >X</button>
+          </li>
+        </ol>
+
+    </div>
+    <div>
+        <!-- Candidate Form -->
+        <h4>Add Candidate</h4>
+        <div ng-form="$ctrl.form">
+            <div>
+                <input type="text" placeholder="Enter Candidate Name" required ng-model="$ctrl.newCandidate.name"/>
+            </div>
+            <div>
+              <!--TODO Implement a add candidate function-->
+                <button type="button" class="add-button" ng-click="$ctrl.addCandidate()" ng-disabled="$ctrl.form.$invalid"> + </button>
+            </div>
+        </div>
+    </div>
+</div>
