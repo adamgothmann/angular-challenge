@@ -1,28 +1,30 @@
 <div>
-    <div>
-        <!-- List of Candidates -->
-        <h3>Manage Candidates</h3>
-        <ol>
-			<!--TODO ADD List of Candidate and the ability to remove-->
-          <li ng-repeat="candidate in $ctrl.candidates">
-            <span ng-bind="candidate.name"></span>
-            <button class="delete" ng-click="$ctrl.onCandidateDelete(candidate)" type="button">Delete</button>
-            <!-- <button class="delete-button btn btn-danger" ng-click="$ctrl.deleteCandidate($index)" type="button">Delete</button> -->
-          </li>
-        </ol>
-
-    </div>
-    <div>
+    <h3 id="manage-candidates">Manage Candidates</h3>
         <!-- Candidate Form -->
-        <h4>Add Candidate</h4>
-        <div ng-form="$ctrl.form">
-            <div>
-                <input type="text" placeholder="Enter Candidate Name" required ng-model="$ctrl.newCandidate.name"/>
+    <div id="manage">
+        <div id="add-candidate">
+
+            <h4>Add Candidate</h4>
+            <div ng-form="$ctrl.form">
+                <div>
+                    <input type="text" placeholder="Enter Candidate Name" required ng-model="$ctrl.newCandidate.name"/>
+                </div>
+                <div>
+                  <!--TODO Implement a add candidate function-->
+                    <button type="button" class="add-button " ng-click="$ctrl.addCandidate(ctrl.newCandidate.name)" ng-disabled="$ctrl.form.$invalid"> Add </button>
+                </div>
             </div>
-            <div>
-              <!--TODO Implement a add candidate function-->
-                <button type="button" class="add-button" ng-click="$ctrl.addCandidate(ctrl.newCandidate.name)" ng-disabled="$ctrl.form.$invalid"> Add candidate </button>
-            </div>
+        </div>
+        <div id="candidate-list">
+          <!-- List of Candidates -->
+            <ol>
+          <!--TODO ADD List of Candidate and the ability to remove-->
+                <li ng-repeat="candidate in $ctrl.candidates">
+                    <span ng-bind="candidate.name"></span>
+                    <button class="delete" ng-click="$ctrl.onCandidateDelete(candidate)" type="button">Delete</button>
+                    <!-- <button class="delete-button" ng-click="$ctrl.deleteCandidate($index)" type="button">Delete</button> -->
+                </li>
+            </ol>
         </div>
     </div>
 </div>

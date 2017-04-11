@@ -26,6 +26,7 @@
 		function ElectionController($timeout, percentage){
 			var ctrl = this;
 
+      // assigns getCandidatePercentage from service to ctrl.percentage.
       ctrl.percentage = percentage.getCandidatePercentage;
 
 			ctrl.candidates = [];
@@ -42,8 +43,8 @@
 			ctrl.onVote = function(candidate) {
 				var index = ctrl.candidates.indexOf(candidate);
 				ctrl.candidates[index].votes += 1;
-        ctrl.sortVotes();
-        ctrl.percentage(ctrl.candidates);
+        ctrl.sortVotes(); // sorts the votes column each time a vote is cast.
+        ctrl.percentage(ctrl.candidates); // calculates total vote % each time a vote is cast.
 			};
 
       ctrl.sortVotes = function(){
@@ -108,6 +109,7 @@
             //TODO Add code to add a new candidate
             ctrl.addCandidate = function(){
               ctrl.candidates.push({name: ctrl.newCandidate.name, color: "", votes: 0, percentage: ctrl.percentage(ctrl.candidates)});
+              ctrl.newCandidate.name = "";
             };
 
 
@@ -143,7 +145,7 @@
             bindings: {
                 candidates: "<"
             }
-        })
+        }) // my service to make getCandidatePercentage accessible from other controllers.
         .service("percentage", function(){
             this.getCandidatePercentage = function(candidates){
               for(var i = 0; i < candidates.length; i++){
@@ -192,7 +194,6 @@
 			var ctrl = this;
 
             ctrl.castVote = function (candidate) {
-              console.log(candidate);
                 ctrl.onVote({ $candidate: candidate });
             };
 

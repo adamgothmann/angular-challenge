@@ -1,8 +1,6 @@
 table {
   margin: 5px auto ;
   width: 90%;
-  /*height: 300px;*/
-  /*border: solid;*/
   table-layout: fixed;
   font-size: 16px;
 }
@@ -29,10 +27,6 @@ td {
   height: 15px;
 }
 
-table, th, td {
-  /*border: solid;*/
-}
-
 .number {
   width: 20px;
 }
@@ -45,6 +39,7 @@ h1 {
   border: solid;
   border-radius: 10px;
   margin: 40px;
+  padding-bottom: 20px;
   background-color: #eaedf2;
 }
 
@@ -54,10 +49,59 @@ h1 {
 
 .vote {
   border: solid;
-  width: 300px;
-  margin-left: 40px;
+  border-radius: 5px;
+  width: 150px;
+  height: auto;
+  margin-left: 110px;
+  float: left;
+  background-color: white;
+}
+
+.directions {
+  margin-left: 112px;
+  margin-top: -14px;
+}
+
+.vote-button-box {
+  text-align: center;
 }
 
 #vote {
   margin-left: 100px;
+}
+
+#manage {
+  border: solid;
+  border-radius: 5px;
+  width: 550px;
+  height: auto;
+  display: inline-block;
+  margin-left: 200px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+#manage-candidates {
+  position: absolute;
+  margin-top: -36px;
+  margin-left: 630px;
+}
+
+#add-candidate {
+  display: inline-block;
+  position: absolute;
+  margin-left: 10px;
+  margin-top: -10px;
+}
+
+.add-button {
+  border: 1px solid;
+  border-radius: 3px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+#candidate-list {
+  display: inline-block;
+  margin-left: 200px;
 }
