@@ -1,6 +1,6 @@
-<h3>Cast Your Vote!</h3>
+<h3 id="vote">Cast Your Vote!</h3>
 
-<div>
+<div class="vote">
     <div ng-repeat="candidate in $ctrl.candidates">
         <!--One button foreach candidate-->
         <button type="button" ng-click="$ctrl.castVote(candidate)">

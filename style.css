@@ -1,3 +1,63 @@
-.delete-button {
-  background-color: red;
+table {
+  margin: 5px auto ;
+  width: 90%;
+  /*height: 300px;*/
+  /*border: solid;*/
+  table-layout: fixed;
+  font-size: 16px;
+}
+
+#table {
+  border: solid;
+  height: 250px;
+  margin: 15px;
+  border-radius: 5px;
+  overflow: scroll;
+  background-color: white;
+}
+
+th {
+  height: 20px;
+  border-bottom: solid;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #eaedf2;
+}
+
+td {
+  height: 15px;
+}
+
+table, th, td {
+  /*border: solid;*/
+}
+
+.number {
+  width: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#main {
+  border: solid;
+  border-radius: 10px;
+  margin: 40px;
+  background-color: #eaedf2;
+}
+
+.delete {
+  color: #d16464
+}
+
+.vote {
+  border: solid;
+  width: 300px;
+  margin-left: 40px;
+}
+
+#vote {
+  margin-left: 100px;
 }

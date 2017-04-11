@@ -9,7 +9,6 @@
 //Election Component
 (function () {
     "use strict";
-    console.log('something');
 
     angular.module("Election.Component", [
             "Election.Candidate.Component",
@@ -22,10 +21,12 @@
             bindings: { }
         });
 
-		ElectionController.$inject = [ "$timeout" ];
+		ElectionController.$inject = [ "$timeout", "percentage" ];
 
-		function ElectionController($timeout){
+		function ElectionController($timeout, percentage){
 			var ctrl = this;
+
+      ctrl.percentage = percentage.getCandidatePercentage;
 
 			ctrl.candidates = [];
 
@@ -42,6 +43,7 @@
 				var index = ctrl.candidates.indexOf(candidate);
 				ctrl.candidates[index].votes += 1;
         ctrl.sortVotes();
+        ctrl.percentage(ctrl.candidates);
 			};
 
       ctrl.sortVotes = function(){
@@ -56,15 +58,14 @@
 				// Mimic 1 seconds ajax call
 				$timeout(function(){
 					ctrl.candidates = [
-						{ name: "Puppies", color: "blue", votes: 65 },
-						{ name: "Kittens", color: "red", votes: 62 },
-						{ name: "Pandas", color: "green", votes: 5 },
-            { name: "raptors", color: "purple", votes: 17 }
+						{ name: "Puppies", color: "blue", votes: 65  },
+						{ name: "Kittens", color: "red", votes: 62  },
+						{ name: "Pandas", color: "green", votes: 5  }
 					];
+
+          ctrl.percentage(ctrl.candidates);
           ctrl.sortVotes();
-          // console.log(ctrl.candidates.sort(function(a, b){
-          //   return b.votes - a.votes;
-          // }));
+
 				}, 1000);
 
 			};
@@ -76,7 +77,6 @@
 //Candidate Component
 (function (angular) {
     "use strict";
-    console.log('something');
 
     angular.module("Election.Candidate.Component", [])
         .component("tfElectionCandidate", {
@@ -89,9 +89,9 @@
             }
         });
 
-		CandidateController.$inject = ['$scope'];
+		CandidateController.$inject = ["percentage"];
 
-		function CandidateController($scope){
+		function CandidateController(percentage){
 
 			var ctrl = this,
                 buildNewCandidate = function() {
@@ -101,20 +101,27 @@
                         color: null
                     };
                 };
+            ctrl.percentage = percentage.getCandidatePercentage;
 
             ctrl.newCandidate = null;
 
             //TODO Add code to add a new candidate
             ctrl.addCandidate = function(){
-              ctrl.candidates.push({name: ctrl.newCandidate.name, votes: 1});
+              ctrl.candidates.push({name: ctrl.newCandidate.name, color: "", votes: 0, percentage: ctrl.percentage(ctrl.candidates)});
             };
 
 
             //TODO Add code to remove a candidate
-            ctrl.deleteCandidate = function(index) {
-              console.log("index", index);
-              ctrl.candidates.splice(index, 1);
-            };
+            ctrl.onCandidateDelete = function(candidate) {
+      				var index = ctrl.candidates.indexOf(candidate);
+      				ctrl.candidates.splice(index, 1);
+              ctrl.percentage(ctrl.candidates);
+      			};
+            // MY CODE ↓
+            // ctrl.deleteCandidate = function(index) {
+            //   ctrl.candidates.splice(index, 1);
+            //   ctrl.percentage(ctrl.candidates);
+            // };
 
             // $onInit is called once at component initialization
             ctrl.$onInit = function () {
@@ -128,7 +135,6 @@
 //Results Component
 (function () {
     "use strict";
-    console.log('something');
 
     angular.module("Election.Results.Component", [])
         .component("tfElectionResults", {
@@ -137,22 +143,31 @@
             bindings: {
                 candidates: "<"
             }
+        })
+        .service("percentage", function(){
+            this.getCandidatePercentage = function(candidates){
+              for(var i = 0; i < candidates.length; i++){
+                var total = _.sumBy(candidates, "votes");
+                if (total) {
+                    candidates[i].percentage = Math.round(100 * candidates[i].votes / total);
+                  }
+                }
+                return 0;
+            };
         });
 
 		ResultsController.$inject = [];
 
 		function ResultsController(){
-			var ctrl = this;
-      var total;
-            ctrl.getCandidatePercentage = function (votes) {
-                total = _.sumBy(ctrl.candidates, "votes");
+  			var ctrl = this;
+
+        ctrl.getCandidatePercentage = function (votes) {
+                var total = _.sumBy(ctrl.candidates, "votes");
                 if (total) {
                     return 100 * votes / total;
                 }
                 return 0;
-            };
-            ctrl.getCandidatePercentage();
-            console.log("total", total);
+        };
 		}
 
 })();
@@ -160,7 +175,6 @@
 //Vote Component
 (function () {
     "use strict";
-    console.log('something');
 
     angular.module("Election.Vote.Component", [])
         .component("tfElectionVote", {
